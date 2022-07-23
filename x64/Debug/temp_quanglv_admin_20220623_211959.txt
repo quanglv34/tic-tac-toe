@@ -1,0 +1,13 @@
+Match end by win. Winner: quanglv.
+Match end at Sat Jul 23 21:19:59 2022
+
+IP Address: 127.0.0.1	Player 1: quanglv
+
+IP Address: 127.0.0.1	Player 2: admin
+Move Log
+{x: 5, y: 6, type: 1}
+{x: 7, y: 6, type: 2}
+{x: 8, y: 6, type: 1}
+{x: 7, y: 7, type: 2}
+{x: 8, y: 5, type: 1}
+{x: 7, y: 5, type: 2}

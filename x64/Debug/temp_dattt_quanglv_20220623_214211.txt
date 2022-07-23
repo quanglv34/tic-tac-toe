@@ -1,0 +1,7 @@
+Match end by surrender. Winner: quanglv.
+Match end at Sat Jul 23 21:42:11 2022
+
+IP Address: 127.0.0.1	Player 1: dattt
+
+IP Address: 127.0.0.1	Player 2: quanglv
+Move Log

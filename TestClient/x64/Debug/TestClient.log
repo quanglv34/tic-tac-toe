@@ -1,0 +1,24 @@
+﻿  TestClient.c
+d:\downloads\caro_game-main\testclient\testclient.c(35): error C2065: 'sockaddr_in': undeclared identifier
+d:\downloads\caro_game-main\testclient\testclient.c(35): error C2146: syntax error: missing ';' before identifier 'serverAddr'
+d:\downloads\caro_game-main\testclient\testclient.c(35): error C2065: 'serverAddr': undeclared identifier
+d:\downloads\caro_game-main\testclient\testclient.c(36): error C2065: 'serverAddr': undeclared identifier
+d:\downloads\caro_game-main\testclient\testclient.c(36): error C2224: left of '.sin_family' must have struct/union type
+d:\downloads\caro_game-main\testclient\testclient.c(37): error C2065: 'serverAddr': undeclared identifier
+d:\downloads\caro_game-main\testclient\testclient.c(37): error C2224: left of '.sin_port' must have struct/union type
+d:\downloads\caro_game-main\testclient\testclient.c(38): error C2065: 'serverAddr': undeclared identifier
+d:\downloads\caro_game-main\testclient\testclient.c(38): error C2224: left of '.sin_addr' must have struct/union type
+d:\downloads\caro_game-main\testclient\testclient.c(38): error C2198: 'inet_pton': too few arguments for call
+d:\downloads\caro_game-main\testclient\testclient.c(41): error C2065: 'sockaddr': undeclared identifier
+d:\downloads\caro_game-main\testclient\testclient.c(41): error C2059: syntax error: ')'
+d:\downloads\caro_game-main\testclient\testclient.c(46): error C2143: syntax error: missing ')' before 'string'
+d:\downloads\caro_game-main\testclient\testclient.c(46): error C2143: syntax error: missing '{' before 'string'
+d:\downloads\caro_game-main\testclient\testclient.c(46): error C2059: syntax error: 'string'
+d:\downloads\caro_game-main\testclient\testclient.c(46): error C2059: syntax error: ')'
+d:\downloads\caro_game-main\testclient\testclient.c(53): error C2059: syntax error: 'while'
+d:\downloads\caro_game-main\testclient\testclient.c(73): warning C4273: 'closesocket': inconsistent dll linkage
+  c:\program files (x86)\windows kits\8.1\include\um\winsock2.h(1689): note: see previous definition of 'closesocket'
+d:\downloads\caro_game-main\testclient\testclient.c(76): warning C4273: 'WSACleanup': inconsistent dll linkage
+  c:\program files (x86)\windows kits\8.1\include\um\winsock2.h(2390): note: see previous definition of 'WSACleanup'
+d:\downloads\caro_game-main\testclient\testclient.c(77): error C2059: syntax error: 'return'
+d:\downloads\caro_game-main\testclient\testclient.c(79): error C2059: syntax error: '}'

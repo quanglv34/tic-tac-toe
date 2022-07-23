@@ -1,0 +1,10 @@
+﻿  server.cpp
+d:\caro_game-main\temp\server.h(78): warning C4018: '<': signed/unsigned mismatch
+d:\caro_game-main\temp\server.h(104): warning C4018: '<': signed/unsigned mismatch
+d:\caro_game-main\temp\server.h(467): warning C4018: '<': signed/unsigned mismatch
+  room.cpp
+  database.cpp
+d:\caro_game-main\temp\database.cpp(404): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Server.vcxproj -> D:\caro_game-main\Debug\Server.exe
+  Server.vcxproj -> D:\caro_game-main\Debug\Server.pdb (Full PDB)

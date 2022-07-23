@@ -1,0 +1,15 @@
+﻿  database.cpp
+c:\caro_game-main\temp\database.cpp(48): warning C4101: 'MsgLen': unreferenced local variable
+c:\caro_game-main\temp\database.cpp(49): warning C4101: 'rc1': unreferenced local variable
+c:\caro_game-main\temp\database.cpp(50): warning C4101: 'hstmt': unreferenced local variable
+c:\caro_game-main\temp\database.cpp(46): warning C4101: 'SQLStmt': unreferenced local variable
+c:\caro_game-main\temp\database.cpp(49): warning C4101: 'rc2': unreferenced local variable
+c:\caro_game-main\temp\database.cpp(47): warning C4101: 'NativeError': unreferenced local variable
+c:\caro_game-main\temp\database.cpp(108): warning C4101: 'MsgLen': unreferenced local variable
+c:\caro_game-main\temp\database.cpp(109): warning C4101: 'rc1': unreferenced local variable
+c:\caro_game-main\temp\database.cpp(110): warning C4101: 'hstmt': unreferenced local variable
+c:\caro_game-main\temp\database.cpp(106): warning C4101: 'SQLStmt': unreferenced local variable
+c:\caro_game-main\temp\database.cpp(109): warning C4101: 'rc2': unreferenced local variable
+c:\caro_game-main\temp\database.cpp(107): warning C4101: 'NativeError': unreferenced local variable
+  Temp.vcxproj -> C:\caro_game-main\x64\Debug\Temp.exe
+  Temp.vcxproj -> C:\caro_game-main\x64\Debug\Temp.pdb (Full PDB)

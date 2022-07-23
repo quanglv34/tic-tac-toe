@@ -1,0 +1,17 @@
+Match end by win. Winner: admin.
+Match end at Sat Jul 23 20:18:50 2022
+
+IP Address: 127.0.0.1	Player 1: admin
+
+IP Address: 127.0.0.1	Player 2: tungbt
+Move Log
+{x: 4, y: 5, type: 1}
+{x: 8, y: 10, type: 2}
+{x: 7, y: 11, type: 1}
+{x: 8, y: 6, type: 2}
+{x: 12, y: 5, type: 1}
+{x: 12, y: 9, type: 2}
+{x: 12, y: 6, type: 1}
+{x: 11, y: 9, type: 2}
+{x: 14, y: 9, type: 1}
+{x: 10, y: 9, type: 2}

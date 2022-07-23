@@ -1,0 +1,9 @@
+Match end by surrender. Winner: admin.
+Match end at Sat Jul 23 21:39:52 2022
+
+IP Address: 127.0.0.1	Player 1: quanglv
+
+IP Address: 127.0.0.1	Player 2: admin
+Move Log
+{x: 5, y: 9, type: 1}
+{x: 7, y: 13, type: 2}

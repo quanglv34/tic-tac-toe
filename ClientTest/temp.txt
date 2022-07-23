@@ -1,0 +1,2 @@
+IP Address: 127.0.0.1	Player 1: datttIP Address: 127.0.0.1	Player 2: quanglv
+{x: 1, y: 1, type: 1}
