@@ -72,6 +72,7 @@ namespace Client
         /// </summary>
         private void EventManager_SignIn(object sender, SuperEventArgs e)
         {
+            EventManager.eventManager.SignIn -= EventManager_SignIn;
             FormMain.App.BeginInvoke((MethodInvoker)(() =>
             {
                 if (e.ReturnCode == Constants.OPCODE_SIGN_IN_SUCESS)
@@ -82,28 +83,29 @@ namespace Client
                     SocketManager.socketManager.sendData(new Message(Constants.OPCODE_INFO, (ushort) userNameTextBox.Text.Length, userNameTextBox.Text));
                     FormMain.App.setPlayerName(this.userNameTextBox.Text);
                     FormManager.openForm(Constants.FORM_MAIN);
-                return;
-                }
-                switch (e.ReturnCode)
+                } else
                 {
-                    case Constants.OPCODE_SIGN_IN_ALREADY_LOGGED_IN:
-                        MessageBox.Show("Already login!");
-                        break;
-                    case Constants.OPCODE_SIGN_IN_INVALID_PASSWORD:
-                        MessageBox.Show("Invalid password!");
-                        break;
-                    case Constants.OPCODE_SIGN_IN_USERNAME_NOT_FOUND:
-                        MessageBox.Show("Can't find username!");
-                        break;
-                    case Constants.OPCODE_SIGN_IN_WRONG_PASSWORD:
-                        MessageBox.Show("Invalid password!");
-                        break;
-                    default:
-                        MessageBox.Show("Login failed!", "Error");
-                        break;
+                    EventManager.eventManager.SignIn += EventManager_SignIn;
+                    switch (e.ReturnCode)
+                    {
+                        case Constants.OPCODE_SIGN_IN_ALREADY_LOGGED_IN:
+                            MessageBox.Show("Already login!");
+                            break;
+                        case Constants.OPCODE_SIGN_IN_INVALID_PASSWORD:
+                            MessageBox.Show("Invalid password!");
+                            break;
+                        case Constants.OPCODE_SIGN_IN_USERNAME_NOT_FOUND:
+                            MessageBox.Show("Can't find username!");
+                            break;
+                        case Constants.OPCODE_SIGN_IN_WRONG_PASSWORD:
+                            MessageBox.Show("Invalid password!");
+                            break;
+                        default:
+                            MessageBox.Show("Login failed!", "Error");
+                            break;
+                    }
                 }
             }));
-            return;
         }
         /// <summary>
         /// <para></para>

@@ -125,9 +125,6 @@ namespace Client
 
                 } catch
                 {
-                    MessageBox.Show("Sorry. Can't listen to server! Game will exit.");
-                    FormMain.App.FormClosing -= FormMain.App.FormMain_FormClosing;
-                    Application.Exit();
                 }
             });
             listenThread.IsBackground = true;
