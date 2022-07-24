@@ -24,15 +24,20 @@
 #include "file.h"
 #include "room.h"
 
+/* START DEFINE CONSTANTS */
 #define NO_CLIENT -1
+/* END DEFINE CONSTANTS */
 
+/* START DEFINE VARIABLES */
 CLIENT clients[WSA_MAXIMUM_WAIT_EVENTS];
 vector<Room> rooms;
 WSAEVENT events[WSA_MAXIMUM_WAIT_EVENTS];
 DWORD nEvents = 0;
 DWORD index;
 WSANETWORKEVENTS sockEvent;
+/* END DEFINE VARIABLES */
 
+/* START DEFINE FUNCITON PROTOTYPES */
 CLIENT* findClientByUsername(char *username);
 CLIENT* findClientBySocket(SOCKET socket);
 string getCurrentTime();
@@ -57,9 +62,16 @@ void handleRecvPlay(CLIENT* aClient);
 void handleRecvSurrender(CLIENT* aClient);
 int handleSend(CLIENT* aClient, int index);
 int handleSendFile(CLIENT* aClient);
+/* END DEFINE FUNCITON PROTOTYPES */
+
+/* START FUNCITON DEFINITION */
 
 /*
+@Function
+Remove a client from the active clients array in server
+@Params
 
+@Return
 */
 void removeClient(int index) {
 	CLIENT* aClient = &clients[index];
@@ -80,7 +92,11 @@ void removeClient(int index) {
 	nEvents--;
 }
 /*
+@Function
 
+@Params
+
+@Return
 */
 void removeRoom(SOCKET socket) {
 	int i;
@@ -90,8 +106,11 @@ void removeRoom(SOCKET socket) {
 		rooms.erase(rooms.begin() + i);
 }
 /*
+@Function
 
+@Params
 
+@Return
 */
 CLIENT* findClientByUsername(char *username) {
 	for (int i = 0; i < (int)nEvents; i++)
@@ -99,8 +118,11 @@ CLIENT* findClientByUsername(char *username) {
 	return NULL;
 }
 /*
+@Function
 
+@Params
 
+@Return
 */
 CLIENT* findClientBySocket(SOCKET socket) {
 	for (int i = 0; i < (int)nEvents; i++)
@@ -108,8 +130,11 @@ CLIENT* findClientBySocket(SOCKET socket) {
 	return NULL;
 }
 /*
+@Function
 
+@Params
 
+@Return
 */
 int findClientIndexBySocket(SOCKET socket) {
 	int i;
@@ -118,8 +143,11 @@ int findClientIndexBySocket(SOCKET socket) {
 	return NO_CLIENT;
 }
 /*
+@Function
 
+@Params
 
+@Return
 */
 Room* findRoomBySocket(SOCKET socket) {
 	for (int i = 0; i < rooms.size(); i++) {
@@ -132,6 +160,13 @@ Room* findRoomBySocket(SOCKET socket) {
 /*
 function handleRecvList: Assign client's to a suitable handle
 @param aClient: The client sent the
+*/
+/*
+@Function
+
+@Params
+
+@Return
 */
 void handleRecv(CLIENT* aClient) {
 	switch (aClient->opcode) {
@@ -159,10 +194,10 @@ void handleRecv(CLIENT* aClient) {
 	case OPCODE_FILE:
 		handleRecvFile(aClient);
 		break;
-	case OPCODE_LOG_IN:
+	case OPCODE_SIGN_IN:
 		handleRecvSignIn(aClient);
 		break;
-	case OPCODE_LOG_OUT:
+	case OPCODE_SIGN_OUT:
 		handleRecvSignOut(aClient);
 		break;
 	case OPCODE_SIGN_UP:
@@ -176,6 +211,13 @@ void handleRecv(CLIENT* aClient) {
 function handleRecvList: Assign client's reply to a suitable handle
 @param aClient: The client to reply
 @param index: The index of the client
+*/
+/*
+@Function
+
+@Params
+
+@Return
 */
 int handleSend(CLIENT* aClient, int index) {
 	int ret;
@@ -196,6 +238,13 @@ int handleSend(CLIENT* aClient, int index) {
 function handleRecvList: Handle a request that has opcode equals OPCODE_SIGN_UP
 @param aClient: The client that requested
 */
+/*
+@Function
+
+@Params
+
+@Return
+*/
 void handleRecvFile(CLIENT* aClient) {
 	// Check if there is any ongoing file transfer
 	if (aClient->fPointer == NULL) {
@@ -209,6 +258,13 @@ void handleRecvFile(CLIENT* aClient) {
 /*
 function handleRecvSignup: Handle a request that has opcode equals OPCODE_SIGN_UP
 @param aClient: The client that requested
+*/
+/*
+@Function
+
+@Params
+
+@Return
 */
 void handleRecvSignUp(CLIENT* aClient) {
 	string payload(aClient->buff);
@@ -267,21 +323,28 @@ void handleRecvSignUp(CLIENT* aClient) {
 function handleRecvSignin: Handle a request that has opcode equals OPCODE_SIGN_IN
 @param aClient: The client that requested
 */
+/*
+@Function
+
+@Params
+
+@Return
+*/
 void handleRecvSignIn(CLIENT* aClient) {
 	// Validate logged in user
 	if (aClient->isLoggedIn) {
-		Send(aClient, OPCODE_LOG_IN_ALREADY_LOGGED_IN, 0, NULL);
+		Send(aClient, OPCODE_SIGN_IN_ALREADY_LOGGED_IN, 0, NULL);
 		return;
 	}
 	string payload(aClient->buff);
 	string username, password;
 	// Validate username and password
 	if (payload[20] != ' ' || payload.size() == 0) {
-		Send(aClient, OPCODE_LOG_IN_INVALID_USERNAME, 0, NULL);
+		Send(aClient, OPCODE_SIGN_IN_INVALID_USERNAME, 0, NULL);
 		return;
 	}
 	else if (payload.size() > 41 || payload.size() < 22) {
-		Send(aClient, OPCODE_LOG_IN_INVALID_PASSWORD, 0, NULL);
+		Send(aClient, OPCODE_SIGN_IN_INVALID_PASSWORD, 0, NULL);
 		return;
 	}
 	else {
@@ -300,12 +363,12 @@ void handleRecvSignIn(CLIENT* aClient) {
 		else username = un;
 
 		if (username.find(' ') != string::npos) {
-			Send(aClient, OPCODE_LOG_IN_INVALID_USERNAME, 0, NULL);
+			Send(aClient, OPCODE_SIGN_IN_INVALID_USERNAME, 0, NULL);
 			return;
 		}
 
 		else if (password.find(' ') != string::npos) {
-			Send(aClient, OPCODE_LOG_IN_INVALID_PASSWORD, 0, NULL);
+			Send(aClient, OPCODE_SIGN_IN_INVALID_PASSWORD, 0, NULL);
 			return;
 		}
 
@@ -313,10 +376,10 @@ void handleRecvSignIn(CLIENT* aClient) {
 	// Check for signed in user
 	int ret = updateSignIn((char*) username.c_str(), (char*) password.c_str());
 	switch (ret) {
-	case OPCODE_LOG_IN_SUCESS:
+	case OPCODE_SIGN_IN_SUCESS:
 		aClient->isLoggedIn = true;
 		strcpy_s(aClient->username, (char*) username.c_str());
-		Send(aClient, OPCODE_LOG_IN_SUCESS, 0, NULL);
+		Send(aClient, OPCODE_SIGN_IN_SUCESS, 0, NULL);
 		break;
 	default:
 		Send(aClient, ret, 0, NULL);
@@ -328,16 +391,23 @@ void handleRecvSignIn(CLIENT* aClient) {
 function handleRecvList: Handle a request that has opcode equals OPCODE_SIGN_OUT
 @param aClient: The client that requested
 */
+/*
+@Function
+
+@Params
+
+@Return
+*/
 void handleRecvSignOut(CLIENT* aClient) {
 	if (aClient->isLoggedIn) {
 		aClient->isLoggedIn = false;
 		updateUserIsFree(aClient->username, UPDATE_USER_NOT_BUSY);
 		updateUserStatus(aClient->username, UPDATE_USER_STATUS_OFFLINE);
-		Send(aClient, OPCODE_LOG_OUT_SUCCESS, 0, NULL);
+		Send(aClient, OPCODE_SIGN_OUT_SUCCESS, 0, NULL);
 		return;
 	}
 	else {
-		Send(aClient, OPCODE_LOG_IN_ALREADY_LOGGED_IN, 0, NULL);
+		Send(aClient, OPCODE_SIGN_IN_ALREADY_LOGGED_IN, 0, NULL);
 		return;
 	}
 }
@@ -345,6 +415,13 @@ void handleRecvSignOut(CLIENT* aClient) {
 /*
 function handleRecvList: Handle a request that has opcode equals OPCODE_LIST
 @param aClient: The client that requested
+*/
+/*
+@Function
+
+@Params
+
+@Return
 */
 void handleRecvList(CLIENT* aClient) {
 	string payload = getFreePlayerList(aClient->username);
@@ -356,6 +433,13 @@ void handleRecvList(CLIENT* aClient) {
 /*
 function handleRecvList: Handle a request that has opcode equals OPCODE_CHALLENGE
 @param aClient: The client that requested
+*/
+/*
+@Function
+
+@Params
+
+@Return
 */
 void handleRecvChallenge(CLIENT* challengeSender) {
 	char* challengeReceiverUsername = challengeSender->buff;
@@ -386,6 +470,13 @@ void handleRecvChallenge(CLIENT* challengeSender) {
 function handleRecvChallengeAccept: Handle a request that has opcode equals OPCODE_CHALLENGE_ACCEPT
 @param aClient: The client that requested
 */
+/*
+@Function
+
+@Params
+
+@Return
+*/
 void handleRecvChallengeAccept(CLIENT* challengeReceiver) {
 	char* challengeSenderUsername = challengeReceiver->buff;
 	CLIENT* challengeSender = findClientByUsername(challengeSenderUsername);
@@ -414,6 +505,13 @@ void handleRecvChallengeAccept(CLIENT* challengeReceiver) {
 function handleRecvChallengeRefuse: Handle a request that has opcode equals OPCODE_CHALLENGE_REFUSE
 @param aClient: The client that requested
 */
+/*
+@Function
+
+@Params
+
+@Return
+*/
 void handleRecvChallengeRefuse(CLIENT* challengeReceiver) {
 	char* challengeSenderUsername = challengeReceiver->buff;
 	CLIENT* challengeSender = findClientByUsername(challengeSenderUsername);
@@ -435,6 +533,13 @@ void handleRecvChallengeRefuse(CLIENT* challengeReceiver) {
 function handleRecvList: Handle a request that has opcode equals OPCODE_INFO
 @param aClient: The client that requested
 */
+/*
+@Function
+
+@Params
+
+@Return
+*/
 void handleRecvInfo(CLIENT* aClient) {
 	if (!aClient->isLoggedIn) {
 		Send(aClient, OPCODE_INFO_NOT_FOUND, 0, NULL);
@@ -449,6 +554,13 @@ void handleRecvInfo(CLIENT* aClient) {
 /*
 function handleRecvPlay: Handle a request that has opcode equals OPCODE_PLAY
 @param aClient: The client that requested
+*/
+/*
+@Function
+
+@Params
+
+@Return
 */
 void handleRecvPlay(CLIENT* aClient) {
 	Room* aRoom = findRoomBySocket(aClient->socket);
@@ -500,6 +612,13 @@ void handleRecvPlay(CLIENT* aClient) {
 function handleRecvSurrender: Handle a request that has opcode equals OPCODE_SURRENDER
 @param aClient: The client that requested
 */
+/*
+@Function
+
+@Params
+
+@Return
+*/
 void handleRecvSurrender(CLIENT* aClient) {
 	Room* aRoom = findRoomBySocket(aClient->socket);
 	if (aRoom == NULL) {
@@ -515,7 +634,13 @@ void handleRecvSurrender(CLIENT* aClient) {
 	updateMatchLog(aRoom, aClient, opponentClient, MATCH_END_BY_SURRENDER, string(opponentClient->username));
 	removeRoom(aClient->socket);
 }
+/*
+@Function
 
+@Params
+
+@Return
+*/
 void updateMatchPlayers(CLIENT* winner, CLIENT* loser) {
 	updateScoreOfPlayer(winner->username, UPDATE_MATCH_WINNER);
 	updateScoreOfPlayer(loser->username, UPDATE_MATCH_LOSER);
@@ -523,7 +648,13 @@ void updateMatchPlayers(CLIENT* winner, CLIENT* loser) {
 	updateUserIsFree(loser->username, UPDATE_USER_NOT_BUSY);
 	updateRank();
 }
+/*
+@Function
 
+@Params
+
+@Return
+*/
 void updateMatchLog(Room* aRoom, CLIENT* client1, CLIENT* client2, int endReasonType, string winner) {
 	std::vector<PlayerMove> movesList = aRoom->getMovesList();
 	// Create log string
@@ -559,8 +690,11 @@ void updateMatchLog(Room* aRoom, CLIENT* client1, CLIENT* client2, int endReason
 	prepareClientToSendFile(client2, filename, (int)logString.size());
 };
 /*
+@Function
 
+@Params
 
+@Return
 */
 string getCurrentTime() {
 	auto end = std::chrono::system_clock::now();
@@ -568,8 +702,11 @@ string getCurrentTime() {
 	return string(std::ctime(&end_time));
 }
 /*
+@Function
 
+@Params
 
+@Return
 */
 string getEndReason(int endReasonType, string winner) {
 	string reason = "";
@@ -590,8 +727,11 @@ string getEndReason(int endReasonType, string winner) {
 	return reason;
 }
 /*
+@Function
 
+@Params
 
+@Return
 */
 void prepareClientToSendFile(CLIENT* aClient, char* filename, int size) {
 	aClient->fPointer = fopen(filename, "r");
@@ -601,6 +741,13 @@ void prepareClientToSendFile(CLIENT* aClient, char* filename, int size) {
 /*
 function handleRecvList: Handle a request that has opcode equals OPCODE_FILE reply
 @param aClient: The client to reply
+*/
+/*
+@Function
+
+@Params
+
+@Return
 */
 int handleSendFile(CLIENT* aClient) {
 	int ret;
@@ -624,4 +771,7 @@ int handleSendFile(CLIENT* aClient) {
 	}
 	return ret;
 }
+/* END FUNCITON DEFINITION */
+
+
 #endif
