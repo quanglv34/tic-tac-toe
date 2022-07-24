@@ -31,9 +31,11 @@ namespace Client
                 return _app;
             }
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public FormMain() {
             InitializeComponent();
             EventManager.eventManager.Challenge += EventManager_Challenge;
@@ -46,53 +48,69 @@ namespace Client
             this.FormClosing += new FormClosingEventHandler(FormMain_FormClosing);
             this.FormClosed += new FormClosedEventHandler(FormMain_FormClosed);
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public void setPlayerName(string name)
         {
             this.userNameInfo.Text = name;
             this.toolStripStatusLabel1.Text = "Welcome player " + name + "!";
         }
-
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public System.Windows.Forms.SaveFileDialog getSaveFileDialog()
         {
             return this.saveFileDialog1;
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public string getPlayerName()
         {
             return this.userNameInfo.Text;
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public void FormMain_Shown(Object sender, EventArgs e)
         {
             FormManager.openForm(Constants.FORM_ACCOUNT);
             this.isFree = true;
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (MessageBox.Show("Confirm exit?", "Warning", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
                 e.Cancel = true;
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             SocketManager.socketManager.closeSocket();
             Application.Exit();
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void exitButton_Click(object sender, EventArgs e) {
             try
             {
@@ -103,9 +121,11 @@ namespace Client
                 MessageBox.Show(ex.Message);
             }
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void signOutButton_Click(object sender, EventArgs e) {
             DialogResult dialogResult = MessageBox.Show("Do you confirm to log out?", "Question", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
@@ -116,17 +136,21 @@ namespace Client
                 SocketManager.socketManager.sendData(new Message(Constants.OPCODE_SIGN_OUT));
             }
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void infoButton_Click(object sender, EventArgs e)
         {
             infoButton.Enabled = false;
             SocketManager.socketManager.sendData(new Message(Constants.OPCODE_INFO));
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void reloadButton_Click(object sender, EventArgs e) {
             reloadButton.Enabled = false;
             SocketManager.socketManager.sendData(new Message(Constants.OPCODE_LIST));
@@ -140,9 +164,11 @@ namespace Client
             Message sentMessage = new Message(Constants.OPCODE_CHALLENGE, (ushort) challengedUsername.Length, challengedUsername);
             SocketManager.socketManager.sendData(sentMessage);
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void EventManager_Challenge(object sender, SuperEventArgs e) {
             FormMain.App.BeginInvoke((MethodInvoker)(() =>
             {
@@ -183,9 +209,11 @@ namespace Client
                 }
             }));
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void EventManager_Info(object sender, SuperEventArgs e)
         {
             if (e.ReturnCode == Constants.OPCODE_INFO_FOUND)
@@ -205,9 +233,11 @@ namespace Client
                 }
             }
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void EventManager_Invite(object sender, SuperEventArgs e) {
             this.opponentName = e.ReturnText;
             if(!isFree)
@@ -229,9 +259,11 @@ namespace Client
                 SocketManager.socketManager.sendData(sentMessage);
             }                
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void EventManager_List(object sender, SuperEventArgs e) {
             FormMain.App.BeginInvoke((MethodInvoker)(() =>
             {
@@ -258,9 +290,11 @@ namespace Client
                 reloadButton.Enabled = true;
             }));
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void EventManager_SignOut(object sender, SuperEventArgs e)
         {
             FormMain.App.BeginInvoke((MethodInvoker) (() =>
@@ -276,9 +310,11 @@ namespace Client
                 }
             }));
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public void changeStatus(string status)
         {
             this.toolStripStatusLabel1.Text = status;

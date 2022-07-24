@@ -16,14 +16,7 @@ namespace Client
         private int currentTurn;
         public int clientTurn;
         private FormPlay form;
-        /*
-        @Function:
 
-        @Params:
-
-        @Return:
-
-        */
         public Panel ChessBoard {
             get {
                 return board;
@@ -32,14 +25,7 @@ namespace Client
                 board = value;
             }
         }
-        /*
-        @Function:
 
-        @Params:
-
-        @Return:
-
-        */
         public int CurrentTurn {
             get {
                 return currentTurn;
@@ -48,14 +34,7 @@ namespace Client
                 currentTurn = value;
             }
         }
-        /*
-        @Function:
 
-        @Params:
-
-        @Return:
-
-        */
         public List<Player> Player {
             get {
                 return player;
@@ -64,14 +43,7 @@ namespace Client
                 player = value;
             }
         }
-        /*
-        @Function:
 
-        @Params:
-
-        @Return:
-
-        */
         public List<Label> PlayerLabel
         {
             get {
@@ -81,14 +53,7 @@ namespace Client
                 playerLabel = value;
             }
         }
-        /*
-        @Function:
 
-        @Params:
-
-        @Return:
-
-        */
         public List<List<Button>> Matrix {
             get {
                 return matrix;
@@ -100,9 +65,11 @@ namespace Client
         }
         /*
         @Function:
-
+        Create a new Board
         @Params:
-
+        form: The form that contains this new Board
+        playerLabel1: The label that hold player's 1 name
+        playerLabel2: The label that hold player's 2 name
         @Return:
 
         */
@@ -124,13 +91,13 @@ namespace Client
             EventManager.eventManager.Move += EventManager_Move;
             CurrentTurn = Constants.TURN_O;
             //Change current player name label
-            PlayerLabel[CurrentTurn - 1].Font = new Font(PlayerLabel[CurrentTurn - 1].Font, FontStyle.Regular);
+            PlayerLabel[CurrentTurn - 1].Font = new Font(PlayerLabel[CurrentTurn - 1].Font, FontStyle.Bold);
         }
         /*
         @Function:
-
+        Return the coordinate of the button, respective to the board 
         @Params:
-
+        btn: The button
         @Return:
 
         */
@@ -142,26 +109,11 @@ namespace Client
             Point point = new Point(x, y);
             return point;
         }
-        /*
-        @Function:
-
-        @Params:
-
-        @Return:
-
-        */
-        public bool isClientTurn()
-        {
-            return this.clientTurn == this.currentTurn;
-        }
-        /*
-        @Function:
-
-        @Params:
-
-        @Return:
-
-        */
+        /// <summary>
+        /// <para>Return the coordinate from a string that represent a button's coordinate, respective to the board</para>
+        /// <param name="btn">The string represent the button's coordinate </param>
+        /// <returns>The point represent the button coordinate</returns>
+        /// </summary>
         public Point getButtonCoordinate(String btn)
         {
             int x = btn[0];
@@ -169,14 +121,19 @@ namespace Client
             Point point = new Point(x, y);
             return point;
         }
-        /*
-        @Function:
-
-        @Params:
-
-        @Return:
-
-        */
+        /// <summary>
+        /// <para>Check if is current turn is this client's turn </para>
+        /// <returns>If it is this client's turn, return true. Else return false</returns>
+        /// </summary>
+        public bool isClientTurn()
+        {
+            return this.clientTurn == this.currentTurn;
+        }
+        /// <summary>
+        /// <para>Prepare the board layout for the match</para>
+        /// <param name="boardChess">The panel control that will hold all the buttons for player to mark their moves</param>
+        /// <returns>The point represent the button coordinate</returns>
+        /// </summary>
         public void drawBoard(Panel boardChess) {
             boardChess.Enabled = true;
             boardChess.Controls.Clear();
@@ -208,25 +165,26 @@ namespace Client
                 previousBtn.Height = 0;
             }
         }
-        /*
-        @Function:
 
-        @Params:
-
-        @Return:
-
-        */
+        /// <summary>
+        /// <c>playerMakeMove</c> change the button back ground to the current player icon
+        /// </summary>
+        /// <param name="btn">The button to be changed</param>
         private void playerMakeMove(Button btn) {
             btn.BackgroundImage = Player[CurrentTurn-1].Mark;
         }
         /*
         @Function:
-
+        Change this board current player to the next player, make neccessary changes to the display
         @Params:
 
         @Return:
 
         */
+        /// <summary>
+        /// <c></c>
+        /// </summary>
+        /// 
         private void changePlayer() {
             // Change current player name label
             PlayerLabel[CurrentTurn - 1].Font = new Font(PlayerLabel[CurrentTurn - 1].Font, FontStyle.Regular);
@@ -237,12 +195,17 @@ namespace Client
         }
         /*
         @Function:
-
+        To fire when client receive a player move event from server
         @Params:
 
         @Return:
-
+        sender: The object fired the event
+        e: The event that was sent
         */
+        /// <summary>
+        /// <c></c>
+        /// </summary>
+        /// 
         private void EventManager_Move(object sender, SuperEventArgs e) {
             FormMain.App.BeginInvoke((MethodInvoker)(() =>
             {
@@ -256,16 +219,21 @@ namespace Client
         }
         /*
         @Function:
-
+        To fire when a button on the board, which means a move was made
         @Params:
 
         @Return:
-
+        sender: The object fired the event
+        e: The event that was sent
         */
         private void Btn_Click(object sender, EventArgs e) {
             Button btn = sender as Button;
             // Check this client move is valid
-            if (btn.BackgroundImage != null || !isClientTurn()) return;
+            if (btn.BackgroundImage != null || !isClientTurn())
+            {
+                form.changeStatus("Hold your horses, champ. It's not your turn.");
+                return;
+            }
             Point point = getButtonCoordinate(btn);
             SocketManager.socketManager.sendData(new Message(Constants.OPCODE_PLAY, (ushort)(2 * Constants.LOCATION_SIZE), (byte)point.X, (byte)point.Y));
             playerMakeMove(btn);

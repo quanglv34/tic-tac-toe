@@ -60,8 +60,7 @@ namespace Client
                     if (this.board.clientTurn == Constants.TURN_X) MessageBox.Show("Congrats " + namePlayer2.Text + ", you won!");
                     else MessageBox.Show("Sorry " + namePlayer1.Text + ", you lost!");
                 }
-                else MessageBox.Show("It's a draw!");
-
+                else MessageBox.Show("It's a draw!"); /* Draw */
                 EventManager.eventManager.Result -= EventManager_Result;
                 this.FormClosing -= FormPlay_FormClosing;
                 this.Close();
@@ -102,6 +101,7 @@ namespace Client
             if (MessageBox.Show("Are you sure about giving up?", "Question", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
                 e.Cancel = true;
             {
+                this.FormClosing -= FormPlay_FormClosing;
                 if (this.board.clientTurn == 1) MessageBox.Show("What a shame " + namePlayer1.Text + ", you lost!");
                 else MessageBox.Show("What a shame " + namePlayer2.Text + ", you lost!");
             }
@@ -135,10 +135,10 @@ namespace Client
 
             if(type == board.clientTurn)
             {
-                changeStatus("It's your turn!");
+                changeStatus("It's your turn to move!");
             } else
             {
-                changeStatus("Waiting for your opponent!");
+                changeStatus("Waiting your opponent to make a move...");
             }
         }
         /*

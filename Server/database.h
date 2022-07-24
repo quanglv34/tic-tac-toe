@@ -41,7 +41,6 @@ struct userScore {
 
 bool connectDB();
 void disconnectDB();
-
 string getUserCurrentChallenge(char *username);
 string getFreePlayerList(char *);
 int getRank(char *username);
@@ -54,18 +53,20 @@ void updateRank();
 void updateUserIsFree(char *username, int isFree);
 void updateScoreOfPlayer(char *username, int win);
 void updateUserChallenge(char *username, char *usernameChallenge);
-
 void showSQLError(unsigned int handleType, const SQLHANDLE& handle);
 
-SQLHANDLE SQLEnvHandle = NULL;
-SQLHANDLE SQLConnectionHandle = NULL;
-SQLHANDLE SQLStatementHandle = NULL;
 
-/* function connectDB: connect to database
+SQLHENV  SQLEnvHandle = NULL;
+SQLHDBC  SQLConnectionHandle = NULL;
+SQLHSTMT SQLStatementHandle = NULL;
 
-Returns true if connect successful, false if connect fail
+/* 
+@Function
+Connect to database
+@Params
+@Return 
+True if connect successful, false if connect fail
 */
-
 bool connectDB() {
 	SQLRETURN retCode = 0;
 	bool rsConn = false;
@@ -131,6 +132,9 @@ void disconnectDB() {
 	SQLDisconnect(SQLConnectionHandle);
 	SQLFreeHandle(SQL_HANDLE_DBC, SQLConnectionHandle);
 	SQLFreeHandle(SQL_HANDLE_ENV, SQLEnvHandle);
+	SQLEnvHandle = NULL;
+	SQLConnectionHandle = NULL;
+	SQLStatementHandle = NULL;
 }
 
 
@@ -154,11 +158,11 @@ int updateSignUp(char *username, char *password) {
 
 
 /* 
- *function userLogin: login to account
- *@param username: username of user
- *@param password: password of user
- *Returns:
- */
+*function userLogin: login to account
+*@param username: username of user
+*@param password: password of user
+*Returns:
+*/
 int updateSignIn(char *username, char *password) {
 	string SQLQuery = "SELECT password, status FROM information WHERE username='" + string(username) + "'";
 	if (connectDB()) {
@@ -167,7 +171,7 @@ int updateSignIn(char *username, char *password) {
 			// Executes a preparable statement
 			showSQLError(SQL_HANDLE_STMT, SQLStatementHandle);
 			disconnectDB();
-			return OPCODE_LOG_IN_UNKNOWN_ERROR;
+			return OPCODE_SIGN_IN_UNKNOWN_ERROR;
 		}
 		else
 		{
@@ -180,28 +184,28 @@ int updateSignIn(char *username, char *password) {
 			//not found player
 			if (strlen(pass) == 0) {
 				disconnectDB();
-				return OPCODE_LOG_IN_USERNAME_NOT_FOUND;
+				return OPCODE_SIGN_IN_USERNAME_NOT_FOUND;
 			}
 			//incorrect password
 			else if (strcmp(pass, password) != 0) {
 				disconnectDB();
-				return OPCODE_LOG_IN_WRONG_PASSWORD;
+				return OPCODE_SIGN_IN_WRONG_PASSWORD;
 			}
 			else {
 				//user logged
 				if (status == 1) {
 					disconnectDB();
-					return OPCODE_LOG_IN_ALREADY_LOGGED_IN;
+					return OPCODE_SIGN_IN_ALREADY_LOGGED_IN;
 				}
 				else {
 					updateUserStatus(username, 1);
 					disconnectDB();
-					return OPCODE_LOG_IN_SUCESS;
+					return OPCODE_SIGN_IN_SUCESS;
 				}
 			}
 		}
 	}
-	else return OPCODE_LOG_IN_UNKNOWN_ERROR;
+	else return OPCODE_SIGN_IN_UNKNOWN_ERROR;
 }
 
 /* 

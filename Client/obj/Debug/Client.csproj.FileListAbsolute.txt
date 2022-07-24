@@ -54,3 +54,14 @@ D:\caro_game-main\Client\obj\Debug\Client.Properties.Resources.resources
 D:\caro_game-main\Client\obj\Debug\Client.csproj.GenerateResource.Cache
 D:\caro_game-main\Client\obj\Debug\Client.exe
 D:\caro_game-main\Client\obj\Debug\Client.pdb
+D:\tic-tac-toe-game\x64\Debug\Client.exe.config
+D:\tic-tac-toe-game\Client\obj\Debug\Client.exe
+D:\tic-tac-toe-game\Client\obj\Debug\Client.pdb
+D:\tic-tac-toe-game\x64\Debug\Client.exe
+D:\tic-tac-toe-game\x64\Debug\Client.pdb
+D:\tic-tac-toe-game\Client\obj\Debug\Client.csprojResolveAssemblyReference.cache
+D:\tic-tac-toe-game\Client\obj\Debug\Client.FormAccount.resources
+D:\tic-tac-toe-game\Client\obj\Debug\Client.FormPlay.resources
+D:\tic-tac-toe-game\Client\obj\Debug\Client.FormMain.resources
+D:\tic-tac-toe-game\Client\obj\Debug\Client.Properties.Resources.resources
+D:\tic-tac-toe-game\Client\obj\Debug\Client.csproj.GenerateResource.Cache

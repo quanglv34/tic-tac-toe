@@ -193,7 +193,9 @@ namespace Client
             this.ClientSize = new System.Drawing.Size(344, 441);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tableLayoutPanel2);
+            this.MaximizeBox = false;
             this.Name = "FormPlay";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);

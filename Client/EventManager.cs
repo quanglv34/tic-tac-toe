@@ -14,6 +14,11 @@ namespace Client
         private event EventHandler<SuperEventArgs> _list;
         private event EventHandler<SuperEventArgs> _signout;
 
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public static EventManager eventManager
         {
             get
@@ -123,6 +128,11 @@ namespace Client
 
         //@funtion notifyLogin: notifyy the login result to the event object when receiving a message
         //@param result: result
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public void notifySignIn(int result) {
             if (_signin != null)
                 _signin(this, new SuperEventArgs(result));
@@ -137,6 +147,11 @@ namespace Client
         //@funtion notifyChallenge: notifyy the respond of other player to the event objecct when receiving a message
         //@param code: opcode of the meassage
         //@param name: name of the other player
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public void notifyChallenge(int code, string name) {
             if (_challenge != null)
                 _challenge(this, new SuperEventArgs(code, name));
@@ -145,6 +160,11 @@ namespace Client
         //@funtion notifyChallenge: notify the respond of other player to the event objecct when receiving a message
         //@param code: opcode of the meassage
         //@param name: name of the other player
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public void notifyInfo(int code, string info)
         {
             if (_info != null)
@@ -153,6 +173,11 @@ namespace Client
 
         //@funtion notifyMove: notifyy the move of opponent to the event objecct when receiving a message
         //@param move: string containing position of the move
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public void notifyMove(string move) {
             if (_move != null)
             {
@@ -162,6 +187,11 @@ namespace Client
 
         //@funtion notifyResult: notifyy the result of the game to the event object
         //@param name: name of the winner 
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public void notifyResult(string name) {
             if (_result != null)
                 _result(this, new SuperEventArgs(name));
@@ -169,6 +199,11 @@ namespace Client
 
         //@funtion notifyInvite: notifyy the challenger received
         //@param name: name of player challenging you
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public void notifyInvite(string name) {
             if (_invite != null)
                 _invite(this, new SuperEventArgs(name));
@@ -176,30 +211,57 @@ namespace Client
 
         //@funtion notifyList: notifyy the list player to event object
         //@param listname: string containing the list
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public void notifyList(string listname) {
             if (_list != null)
                 _list(this, new SuperEventArgs(listname));
         }
     }
 
+    /// <summary>
+    /// <para></para>
+    /// 
+    /// <returns></returns>
+    /// </summary>
     public class SuperEventArgs : EventArgs
     {
         private int returnCode;
         private string returnText;
-
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public SuperEventArgs(int returnCode) {
+
             this.ReturnCode = returnCode;
         }
-
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public SuperEventArgs(string returnName) {
             this.ReturnText = returnName;
         }
-
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public SuperEventArgs(int returnCode, string returnName) {
             this.returnCode = returnCode;
             this.returnText = returnName;
         }
-
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public int ReturnCode {
             get {
                 return returnCode;
@@ -209,7 +271,11 @@ namespace Client
                 returnCode = value;
             }
         }
-
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public string ReturnText {
             get {
                 return returnText;

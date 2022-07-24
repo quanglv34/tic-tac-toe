@@ -11,7 +11,11 @@ namespace Client
         public static byte[] _buff;
         private static int _length;
         private static System.Windows.Forms.SaveFileDialog _saveFileDialog;
-
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public static void appendToBuff(byte[] append, int length)
         {
             if (_buff == null)
@@ -22,12 +26,20 @@ namespace Client
             Buffer.BlockCopy(append, 0, _buff, _length, length);
             _length += length;
         }
-
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public static void startSaveFile(System.Windows.Forms.SaveFileDialog saveFileDialog)
         {
             _saveFileDialog = saveFileDialog;
         }
-
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public static void saveFile()
         {
             System.IO.FileStream fs = (System.IO.FileStream)_saveFileDialog.OpenFile();

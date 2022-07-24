@@ -12,9 +12,11 @@ namespace Client
 {
     public partial class FormAccount : Form
     {
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         public FormAccount()
         {
             InitializeComponent();
@@ -25,16 +27,20 @@ namespace Client
             this.userNameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.userNameTextBox_Validating);
             this.passwordTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.passwordTextBox_Validating);
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void FormAccount_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void EventManager_SignUp(object sender, SuperEventArgs e)
         {
             FormMain.App.BeginInvoke((MethodInvoker)(() =>
@@ -59,9 +65,11 @@ namespace Client
                 }
             }));
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void EventManager_SignIn(object sender, SuperEventArgs e)
         {
             FormMain.App.BeginInvoke((MethodInvoker)(() =>
@@ -82,10 +90,13 @@ namespace Client
                         MessageBox.Show("Already login!");
                         break;
                     case Constants.OPCODE_SIGN_IN_INVALID_PASSWORD:
-                        MessageBox.Show("Incorrect password!");
+                        MessageBox.Show("Invalid password!");
                         break;
                     case Constants.OPCODE_SIGN_IN_USERNAME_NOT_FOUND:
                         MessageBox.Show("Can't find username!");
+                        break;
+                    case Constants.OPCODE_SIGN_IN_WRONG_PASSWORD:
+                        MessageBox.Show("Invalid password!");
                         break;
                     default:
                         MessageBox.Show("Login failed!", "Error");
@@ -94,9 +105,11 @@ namespace Client
             }));
             return;
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void signInButton_Click(object sender, EventArgs e)
         {
             string username = userNameTextBox.Text;
@@ -108,7 +121,11 @@ namespace Client
             Message sentMessage = new Message(Constants.OPCODE_SIGN_IN, (ushort)payload.Length, payload);
             SocketManager.socketManager.sendData(sentMessage);
         }
-
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         private void signUpButton_Click(object sender, EventArgs e)
         {
             string username = userNameTextBox.Text;
@@ -120,9 +137,11 @@ namespace Client
             Message sentMessage = new Message(Constants.OPCODE_SIGN_UP, (ushort)payload.Length, payload);
             SocketManager.socketManager.sendData(sentMessage);
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         void userNameTextBox_Validating(object sender, CancelEventArgs e)
         {
             string error = null;
@@ -138,9 +157,11 @@ namespace Client
             }
             errorProvider1.SetError((Control)sender, error);
         }
-        /*
-         * 
-         */
+        /// <summary>
+        /// <para></para>
+        /// 
+        /// <returns></returns>
+        /// </summary>
         void passwordTextBox_Validating(object sender, CancelEventArgs e)
         {
             string error = null;

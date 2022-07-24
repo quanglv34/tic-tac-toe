@@ -1,5 +1,13 @@
 ﻿namespace Client
 {
+    /*
+     @Function:
+
+     @Params:
+
+     @Return:
+
+     */
     public class Constants
     {
         public const string APP_NAME = "TicTacToe!";
